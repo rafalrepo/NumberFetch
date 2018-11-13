@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>NumberFetch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:300i');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        .wrapper{
+            padding-top: 100px;
+            width: 100%;
+            height: 100vh;
+            background-color: gray;
+        }
+        .showcase{
+            margin: 0 auto;
+            width: 40%;
+            background-color: lightgray;
+            border-radius: 5px;
+            max-height: 500px;
+            text-align: center;
+            padding: 0.5rem 0;
+        }
+        .showcase h2{
+            font-size: 2rem;
+            padding: 1.2rem;
+            letter-spacing: 0.1rem
+        }
+        .showcase .numberBtn{
+            margin-bottom: 1.2rem;
+            border: 0;
+            border-radius: 2px;
+            line-height: 1.6rem;
+            width: 60%;
+            padding: 0.2rem;
+            padding-left: 0.5rem;
+        }
+        .outputContainer{
+            text-align: center;
+            color: red;
+            padding: 1.2rem;
+            padding-top: 0;
+            display: none;
+        }
+
+        .outputContainer h3{
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem
+        }
+
+        .outputContainer p{
+            font-size: 0.9rem
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="showcase">
+            <h2>Simple number Api</h2>
+            <input type="number" id="numberInput" class="numberBtn" placeholder="Please Enter number...">
+            <div class="outputContainer">
+                <h3>Number:</h3>
+                <strong>
+                    <p id="outputNumberText"></p>
+                </strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let input = document.querySelector('#numberInput');
+        let output = document.querySelector('#outputNumberText');
+        let factContainer = document.querySelector('.outputContainer');
+
+        input.addEventListener('input', function getFact() {
+            let number = input.value;
+
+            fetch('http://numbersapi.com/'+number).then(function (response) {
+                return response.text();
+            }).then(response => {
+                if (number != '') {
+                    factContainer.style.display = 'block';
+                    output.innerHTML = response;
+                } else {
+                    factContainer.style.display = 'none';
+                }
+            }).catch(e => console.log(e));
+        })
+    </script>
+</body>
+
+</html>
